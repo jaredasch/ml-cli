@@ -1,7 +1,9 @@
+.DEFAULT_GOAL = cli
+
 LIBS = -llapack -lblas -larmadillo
 
 CC = g++
-OUT = ml-cli
+OUT = bin/ml-cli
 
 INC = include
 CFLAGS = -Wall -g -I $(INC)
