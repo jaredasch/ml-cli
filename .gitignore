@@ -1,0 +1,5 @@
+data/
+.vs_code/
+.vscode/
+ml-cli
+*.o
