@@ -6,17 +6,18 @@ CC = g++
 OUT = bin/ml-cli
 
 INC = include
-CFLAGS = -Wall -g -I $(INC)
+CFLAGS = -Wall -g -I $(INC) -std=c++11	
 
-SRC = $(wildcard src/loaders/*.cpp) $(wildcard src/cli/*.cpp)
-DEP = $(wildcard src/loaders/*.h) $(wildcard src/cli/*.h)
+DIRS = loaders cli classifiers optimizers
+
+SRC = $(foreach dir,$(DIRS),$(wildcard src/$(dir)/*.cpp))
+DEP = $(foreach dir,$(DIRS),$(wildcard src/$(dir)/*.h))
 OBJ = $(SRC:.cpp=.o)
 
 %.o: %.cpp $(DEP)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
-cli: $(OBJ)
-	echo $(SRC)
+cli: $(OBJ) $(DEP)
 	$(CC) $(CFLAGS) -o $(OUT) $(LIBS) $(OBJ) 
 
 .PHONY: clean

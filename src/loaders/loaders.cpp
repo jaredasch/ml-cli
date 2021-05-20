@@ -1,5 +1,6 @@
-#include "loaders/loaders.h"
 #include <armadillo>
+
+#include "loaders/loaders.h"
 
 using namespace arma;
 using namespace std;
@@ -52,6 +53,7 @@ mat loaders::load_csv(string path, char separator, bool is_header) {
             }
         }
 
+        input_f.close();
         return loaded_mat;
     } else {
         // Figure out error handling later
