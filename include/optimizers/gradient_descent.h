@@ -3,20 +3,17 @@
 #include <iostream>
 
 #include "types.h"
-
 #include "classifiers/logistic_regression.h"
+#include "optimizers/first_order_optimizer.h"
 
-
-class GradientDescent {
+class GradientDescent : public FirstOrderOptimizer {
     private:
-        FirstOrderOptimizable* obj;
         int max_iters;
         double thresh;
         double learning_rate;
 
     public: 
         GradientDescent(int max_iters, double thresh, double learning_rate) : 
-            obj{NULL},
             max_iters{max_iters},
             thresh{thresh},
             learning_rate{learning_rate}
@@ -24,15 +21,5 @@ class GradientDescent {
             
         ~GradientDescent() {};
 
-        void bind(FirstOrderOptimizable *obj) {
-            if (this->obj == NULL) {
-                this->obj = obj;
-            }
-        }
-
-        void unbind() {
-            this->obj = NULL;
-        }
-
-        bool run(mat &data, mat &labels);
+        bool run(mat &data, mat &labels) override;
 };
