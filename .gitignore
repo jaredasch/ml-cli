@@ -3,3 +3,4 @@ data/
 .vscode/
 ml-cli
 *.o
+lib/

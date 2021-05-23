@@ -1,17 +1,17 @@
 .DEFAULT_GOAL = cli
 
-LIBS = -llapack -lblas -larmadillo
+LIBS = 
 
 CC = g++
 OUT = bin/ml-cli
 
-INC = include
-CFLAGS = -Wall -g -I $(INC) -std=c++11	
+INC = include 
+CFLAGS = -Wall -g -I include -I lib/eigen -std=c++11	
 
 DIRS = loaders cli classifiers optimizers
 
 SRC = $(foreach dir,$(DIRS),$(wildcard src/$(dir)/*.cpp))
-DEP = $(foreach dir,$(DIRS),$(wildcard src/$(dir)/*.h))
+DEP = $(foreach dir,$(DIRS),$(wildcard include/$(dir)/*.h))
 OBJ = $(SRC:.cpp=.o)
 
 %.o: %.cpp $(DEP)

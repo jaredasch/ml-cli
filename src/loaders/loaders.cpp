@@ -1,17 +1,18 @@
-#include <armadillo>
+#include <vector>
+#include <iostream>
+#include <fstream>
+
+#include <Eigen/Dense>
 
 #include "loaders/loaders.h"
 
-using namespace arma;
-using namespace std;
-
-mat loaders::load_csv(string path, char separator, bool is_header) {
-    ifstream input_f;
+Eigen::MatrixXd loaders::load_csv(std::string path, char separator, bool is_header) {
+    std::ifstream input_f;
     input_f.open(path);
 
     if (input_f.good()) {
         // If header in file, get rid of it
-        string line_buf;
+        std::string line_buf;
         if (is_header) {
             getline(input_f, line_buf);
         };
@@ -21,14 +22,14 @@ mat loaders::load_csv(string path, char separator, bool is_header) {
         unsigned int cols = 0;
 
         // Initialize 2d vector
-        vector<vector<double>> temp_mat;
+        std::vector<std::vector<double>> temp_mat;
 
         while (getline(input_f, line_buf)) {
             // Add empty vector for row
-            temp_mat.push_back(vector<double>());
+            temp_mat.push_back(std::vector<double>());
 
-            stringstream line_stream(line_buf);
-            string val;
+            std::stringstream line_stream(line_buf);
+            std::string val;
 
             // Read until seperator
             while (getline(line_stream, val, separator)) {
@@ -39,14 +40,14 @@ mat loaders::load_csv(string path, char separator, bool is_header) {
             if (current_row == 0) {
                 cols = temp_mat[0].size();
             } else if (temp_mat[current_row].size() != cols) {
-                cout << "Something's wrong\n";
+                std::cout << "Something's wrong\n";
             }
 
             current_row++;
         }
 
         // Construct matrix from vector
-        mat loaded_mat(current_row, cols, fill::zeros);
+        Eigen::MatrixXd loaded_mat(current_row, cols);
         for (unsigned int row = 0; row < current_row; row++) {
             for (unsigned int col = 0; col < cols; col++) {
                 loaded_mat(row, col) = temp_mat[row][col];
@@ -57,7 +58,14 @@ mat loaders::load_csv(string path, char separator, bool is_header) {
         return loaded_mat;
     } else {
         // Figure out error handling later
-        cout << "Error opening file\n";
-        return mat(3, 3, fill::zeros);
+        std::cout << "Error opening file\n";
+        return Eigen::MatrixXd(3, 3);
     }
+}
+
+void loaders::add_bias(Eigen::MatrixXd& matrix) {
+    Eigen::MatrixXd new_col;
+    new_col.setOnes(matrix.rows(), 1);
+    matrix.conservativeResize(matrix.rows(), matrix.cols()+1);
+    matrix.block(0, 1, matrix.rows(), 1) = new_col;
 }
