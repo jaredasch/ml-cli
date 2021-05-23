@@ -4,7 +4,7 @@
 #include <Eigen/Dense>
 #include "optimizers/gradient_descent.h"
 
-typedef Eigen::MatrixXd mat;
+#include "types.h"
 
 bool GradientDescent::run(mat &data, mat &labels) {
     int iters = 0;
@@ -21,7 +21,7 @@ bool GradientDescent::run(mat &data, mat &labels) {
             obj->params[param] = updated_param;
         }
         mat pred = obj->class_conditional_prob(data);
-        double loss = obj->loss(pred, labels);
+        double loss = obj->loss(data, labels);
 
         if (iters != 0 && last_loss -loss < thresh) {
             std::cout << "Converged after " << iters << " iterations" << std::endl;

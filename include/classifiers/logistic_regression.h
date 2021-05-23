@@ -3,16 +3,18 @@
 #include <iostream>
 #include <unordered_map>
 
-typedef Eigen::MatrixXd mat;
+#include "types.h"
 
-class LogisticRegression {
+#include "optimizers/gradient_descent.h"
+#include "optimizers/first_order_optimizable.h"
+
+class LogisticRegression : public FirstOrderOptimizable {
     public:
-        static double sigmoid(double x);
         static mat sigmoid(mat x);
 
         LogisticRegression(int dim);
 
-        void fit(mat &data, mat &labels);
+        void fit(mat &data, mat &labels, GradientDescent& opt);
 
         /**
         *   Calculates class conditional probabilities of the given data

@@ -2,24 +2,37 @@
 
 #include <iostream>
 
+#include "types.h"
+
 #include "classifiers/logistic_regression.h"
+
 
 class GradientDescent {
     private:
-        LogisticRegression* const obj;
+        LogisticRegression* obj;
         int max_iters;
         double thresh;
         double learning_rate;
 
     public: 
-        GradientDescent(LogisticRegression* const obj, int max_iters, double thresh, double learning_rate) : 
-            obj{obj},
+        GradientDescent(int max_iters, double thresh, double learning_rate) : 
+            obj{NULL},
             max_iters{max_iters},
             thresh{thresh},
             learning_rate{learning_rate}
             {}
             
         ~GradientDescent() {};
+
+        void bind(LogisticRegression *obj) {
+            if (this->obj == NULL) {
+                this->obj = obj;
+            }
+        }
+
+        void unbind() {
+            this->obj = NULL;
+        }
 
         bool run(mat &data, mat &labels);
 };

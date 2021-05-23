@@ -1,25 +1,28 @@
 #include <iostream>
 #include <Eigen/Dense>
 
+#include "types.h"
+
 #include "loaders/loaders.h"
 #include "classifiers/logistic_regression.h"
 #include "optimizers/gradient_descent.h"
 
 int main() {
-    Eigen::MatrixXd x_train = loaders::load_csv("data/X_train.txt");
-    Eigen::MatrixXd y_train = loaders::load_csv("data/y_train.txt");
+    mat x_train = loaders::load_csv("data/X_train.txt");
+    mat y_train = loaders::load_csv("data/y_train.txt");
 
     loaders::add_bias(x_train);
 
     LogisticRegression reg = LogisticRegression(x_train.cols());
+    GradientDescent opt = GradientDescent(1000, 0.01, 1);
 
-    reg.fit(x_train, y_train);
+    reg.fit(x_train, y_train, opt);
 
     mat pred_train = reg.predict(x_train);
     std::cout << "Train accuracy: " << reg.accuracy(pred_train, y_train) << std::endl;
 
-    Eigen::MatrixXd x_test = loaders::load_csv("data/X_test.txt");
-    Eigen::MatrixXd y_test = loaders::load_csv("data/y_test.txt");
+    mat x_test = loaders::load_csv("data/X_test.txt");
+    mat y_test = loaders::load_csv("data/y_test.txt");
 
     loaders::add_bias(x_test);
     mat pred_test = reg.predict(x_test);
