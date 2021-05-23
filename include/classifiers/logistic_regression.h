@@ -10,6 +10,9 @@
 
 class LogisticRegression : public FirstOrderOptimizable {
     public:
+        void update_param(std::string param_name, mat new_param) override;
+        mat get_param(std::string param_name) const override;
+
         static mat sigmoid(mat x);
 
         LogisticRegression(int dim);
@@ -30,7 +33,7 @@ class LogisticRegression : public FirstOrderOptimizable {
         /**
         *   Calculate the loss of current model on training data
         */
-        double loss(mat &pred, mat &actual) const;
+        double loss(mat &pred, mat &actual) const override;
 
         double accuracy(mat &pred, mat &actual) const;
 
@@ -38,7 +41,7 @@ class LogisticRegression : public FirstOrderOptimizable {
         *   Calculates the gradient of the loss w.r.t each parameter
         *   @return map from parameter name -> gradient vector for that parameter
         */
-        std::unordered_map<std::string, mat> gradient(mat &data, mat &labels) const;
+        std::unordered_map<std::string, mat> gradient(mat &data, mat &labels) const override;
 
         // Map from param name -> param vector
         std::unordered_map<std::string, mat> params;

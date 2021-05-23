@@ -14,7 +14,7 @@ int main() {
     loaders::add_bias(x_train);
 
     LogisticRegression reg = LogisticRegression(x_train.cols());
-    GradientDescent opt = GradientDescent(1000, 0.01, 1);
+    GradientDescent opt = GradientDescent(10, 0.0001, 1);
 
     reg.fit(x_train, y_train, opt);
 

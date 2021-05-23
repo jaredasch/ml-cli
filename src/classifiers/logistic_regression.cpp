@@ -24,6 +24,24 @@ std::unordered_map<std::string, mat> LogisticRegression::gradient(mat &data, mat
 }
 
 /**
+*   Updates parameters
+*   @param param_name the parameter to update
+*   @param new_param the value for the new parameter
+*/
+void LogisticRegression::update_param(std::string param_name, mat new_param) {
+    params[param_name] = new_param;
+}
+
+/**
+*   Getter for parameters
+*   @param param_name the parameter name to get
+*   @return the corresponding parameter value 
+*/
+mat LogisticRegression::get_param(std::string param_name) const {
+    return params.at(param_name);
+}
+
+/**
 *   Minimizes loss on the provided data using the gradient function
 *   @param data the data to fit to
 *   @param labels the true labels of the data

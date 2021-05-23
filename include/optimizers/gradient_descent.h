@@ -9,7 +9,7 @@
 
 class GradientDescent {
     private:
-        LogisticRegression* obj;
+        FirstOrderOptimizable* obj;
         int max_iters;
         double thresh;
         double learning_rate;
@@ -24,7 +24,7 @@ class GradientDescent {
             
         ~GradientDescent() {};
 
-        void bind(LogisticRegression *obj) {
+        void bind(FirstOrderOptimizable *obj) {
             if (this->obj == NULL) {
                 this->obj = obj;
             }

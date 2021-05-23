@@ -6,6 +6,9 @@
 
 #include "types.h"
 
+/**
+*   Minimizes the loss function of this->obj using provided gradients
+*/
 bool GradientDescent::run(mat &data, mat &labels) {
     int iters = 0;
     std::unordered_map<std::string, mat> gradient;
@@ -15,12 +18,14 @@ bool GradientDescent::run(mat &data, mat &labels) {
     while (iters < max_iters) {
         gradient = obj->gradient(data, labels);
         for (std::pair<std::string, mat> p : gradient) {
-            std::string param = p.first;
+            std::string param_name = p.first;
             mat grad = p.second;
-            mat updated_param = (obj->params[param].array() - learning_rate * grad.array()).matrix();
-            obj->params[param] = updated_param;
+            mat current_param_val = obj->get_param(param_name);
+
+            mat updated_param_val = (current_param_val.array() - learning_rate * grad.array()).matrix();
+            obj->update_param(param_name, updated_param_val);
         }
-        mat pred = obj->class_conditional_prob(data);
+
         double loss = obj->loss(data, labels);
 
         if (iters != 0 && last_loss -loss < thresh) {
