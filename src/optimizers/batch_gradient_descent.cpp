@@ -16,6 +16,7 @@ bool BatchGradientDescent::run(mat &data, mat &labels) {
     double last_loss = 0;
 
     while (iters < max_iters) {
+        std::cout << "\r Iteration " << iters << std::flush;
         gradient_map = gradient(data, labels);
         for (std::pair<std::string, mat> p : gradient_map) {
             std::string param_name = p.first;
@@ -39,5 +40,6 @@ bool BatchGradientDescent::run(mat &data, mat &labels) {
         iters++;
     }
 
+    std::cout << std::endl;
     return false;
 }

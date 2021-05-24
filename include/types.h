@@ -4,12 +4,11 @@
 
 typedef Eigen::MatrixXd mat;
 
+// First order optimizable
+class FirstOrderOptimizable;
 class LogisticRegression;
 
-class BatchGradientDescent;
-
-class FirstOrderOptimizable;
-
+// First order optimizers
 class FirstOrderOptimizer;
-
+class BatchGradientDescent;
 class StochasticGradientDescent;

@@ -67,5 +67,5 @@ void loaders::add_bias(Eigen::MatrixXd& matrix) {
     Eigen::MatrixXd new_col;
     new_col.setOnes(matrix.rows(), 1);
     matrix.conservativeResize(matrix.rows(), matrix.cols()+1);
-    matrix.block(0, 1, matrix.rows(), 1) = new_col;
+    matrix.block(0, 0, matrix.rows(), 1) = new_col;
 }

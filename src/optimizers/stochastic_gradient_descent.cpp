@@ -13,9 +13,11 @@ bool StochasticGradientDescent::run(mat &data, mat &labels) {
     std::unordered_map<std::string, mat> gradient_map;
 
     for (int epoch = 0; epoch < epochs; epoch++) {
+        std::cout << "\r Epoch " << epoch << std::flush;
         for(int example = 0; example < data.rows(); example++) {
             mat data_row = data.block(example, 0, 1, data.cols());
             mat label_row = labels.block(example, 0, 1, 1);
+            std::cout << label_row;
             gradient_map = gradient(data_row, label_row);
 
             for (std::pair<std::string, mat> p : gradient_map) {
@@ -31,5 +33,6 @@ bool StochasticGradientDescent::run(mat &data, mat &labels) {
         }
     }
 
+    std::cout << std::endl;
     return true;
 }
