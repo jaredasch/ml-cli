@@ -31,7 +31,7 @@ bool BatchGradientDescent::run(mat &data, mat &labels) {
 
         double new_loss = loss(data, labels);
 
-        if (iters != 0 && last_loss - new_loss < thresh) {
+        if (iters != 0 && last_loss - new_loss < conv_thresh) {
             std::cout << "Converged after " << iters << " iterations" << std::endl;
             return true;
         }

@@ -5,9 +5,11 @@
 
 #include "loaders/loaders.h"
 #include "classifiers/logistic_regression.h"
+
 #include "optimizers/batch_gradient_descent.h"
 #include "optimizers/stochastic_gradient_descent.h"
 #include "optimizers/minibatch_gradient_descent.h"
+#include "optimizers/adam_optimizer.h"
 
 int main() {
     mat x_train = loaders::load_csv("data/ex1/X_test.txt");
@@ -16,9 +18,12 @@ int main() {
     loaders::add_bias(x_train);
 
     LogisticRegression reg = LogisticRegression(x_train.cols());
+
     // BatchGradientDescent opt = BatchGradientDescent(10000, 0, 0.1);
-    StochasticGradientDescent opt = StochasticGradientDescent(20, 0.1);
+    // StochasticGradientDescent opt = StochasticGradientDescent(50, 0.1);
     // MinibatchGradientDescent opt = MinibatchGradientDescent(20, 1, 0.1);
+    AdamOptimizer opt = AdamOptimizer(0.1, 1e-4, 100, 1000);
+
     reg.fit(x_train, y_train, opt);
 
     mat pred_train = reg.predict(x_train);
