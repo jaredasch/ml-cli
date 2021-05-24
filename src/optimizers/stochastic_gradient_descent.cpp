@@ -1,5 +1,7 @@
 #include <iostream>
 #include <unordered_map>
+#include <vector>
+#include <algorithm>
 
 #include <Eigen/Dense>
 #include "optimizers/stochastic_gradient_descent.h"
@@ -10,14 +12,22 @@
 *   Minimizes the loss function of this->obj using provided gradients
 */
 bool StochasticGradientDescent::run(mat &data, mat &labels) {
+    srand(time(0));
     std::unordered_map<std::string, mat> gradient_map;
 
     for (int epoch = 0; epoch < epochs; epoch++) {
         std::cout << "\r Epoch " << epoch << std::flush;
+
+        // Construct random permutation for minibatch sampling
+        std::vector<int> shuffled_indices;
+        for(int i = 0; i < data.rows(); i++) {
+            shuffled_indices.push_back(i);
+        }
+        std::random_shuffle(shuffled_indices.begin(), shuffled_indices.end());
+
         for(int example = 0; example < data.rows(); example++) {
-            mat data_row = data.block(example, 0, 1, data.cols());
-            mat label_row = labels.block(example, 0, 1, 1);
-            std::cout << label_row;
+            mat data_row = data.block(shuffled_indices[example], 0, 1, data.cols());
+            mat label_row = labels.block(shuffled_indices[example], 0, 1, 1);
             gradient_map = gradient(data_row, label_row);
 
             for (std::pair<std::string, mat> p : gradient_map) {

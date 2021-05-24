@@ -11,6 +11,7 @@
 *   Minimizes the loss function of this->obj using provided gradients
 */
 bool MinibatchGradientDescent::run(mat &data, mat &labels) {
+    srand(time(0));
     std::unordered_map<std::string, mat> gradient_map;
 
     for (int epoch = 0; epoch < epochs; epoch++) {

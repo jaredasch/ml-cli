@@ -17,8 +17,8 @@ int main() {
 
     LogisticRegression reg = LogisticRegression(x_train.cols());
     // BatchGradientDescent opt = BatchGradientDescent(10000, 0, 0.1);
-    // StochasticGradientDescent opt = StochasticGradientDescent(500, 0.1);
-    MinibatchGradientDescent opt = MinibatchGradientDescent(500, 50, 0.1);
+    StochasticGradientDescent opt = StochasticGradientDescent(20, 0.1);
+    // MinibatchGradientDescent opt = MinibatchGradientDescent(20, 1, 0.1);
     reg.fit(x_train, y_train, opt);
 
     mat pred_train = reg.predict(x_train);
