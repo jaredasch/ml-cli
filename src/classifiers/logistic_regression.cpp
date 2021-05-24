@@ -3,7 +3,7 @@
 #include <iostream>
 
 #include "classifiers/logistic_regression.h"
-#include "optimizers/gradient_descent.h"
+#include "optimizers/batch_gradient_descent.h"
 
 #include "types.h"
 
@@ -47,7 +47,7 @@ mat LogisticRegression::get_param(std::string param_name) const {
 *   @param labels the true labels of the data
 *   @param opt optimizer object to use
 */
-void LogisticRegression::fit(mat &data, mat &labels, GradientDescent& opt) {
+void LogisticRegression::fit(mat &data, mat &labels, FirstOrderOptimizer& opt) {
     // Construct optimizer
     opt.bind(this);
     opt.run(data, labels);

@@ -4,9 +4,8 @@
 #include <unordered_map>
 
 #include "types.h"
-
-#include "optimizers/gradient_descent.h"
 #include "optimizers/first_order_optimizable.h"
+#include "optimizers/batch_gradient_descent.h"
 
 class LogisticRegression : public FirstOrderOptimizable {
     public:
@@ -17,7 +16,7 @@ class LogisticRegression : public FirstOrderOptimizable {
 
         LogisticRegression(int dim);
 
-        void fit(mat &data, mat &labels, GradientDescent& opt);
+        void fit(mat &data, mat &labels, FirstOrderOptimizer& opt);
 
         /**
         *   Calculates class conditional probabilities of the given data

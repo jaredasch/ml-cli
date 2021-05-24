@@ -2,14 +2,14 @@
 #include <unordered_map>
 
 #include <Eigen/Dense>
-#include "optimizers/gradient_descent.h"
+#include "optimizers/batch_gradient_descent.h"
 
 #include "types.h"
 
 /**
 *   Minimizes the loss function of this->obj using provided gradients
 */
-bool GradientDescent::run(mat &data, mat &labels) {
+bool BatchGradientDescent::run(mat &data, mat &labels) {
     int iters = 0;
     std::unordered_map<std::string, mat> gradient_map;
 
