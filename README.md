@@ -4,9 +4,7 @@ This is a tool to run some ML subroutines from the command line. I'm primarly us
 I'm also curious about certain ways to parallelize training machine learning algorithms, and hopefully developing them in a systems-heavy language like C++ will allow me to explore this.
 
 ## Next To-Dos
-- Seperate bias terms in gradient so no need for explicit `add_bias` call
 - Build out CLI + parser for logistic regression now that Logistic Regression + optimizers are pretty much done
-- Kernel logistic regression
 - Neural nets + CNNs
 
 ## Instructions to Run on Ubuntu

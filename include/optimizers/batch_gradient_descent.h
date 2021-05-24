@@ -3,7 +3,6 @@
 #include <iostream>
 
 #include "types.h"
-#include "classifiers/logistic_regression.h"
 #include "optimizers/first_order_optimizer.h"
 
 class BatchGradientDescent : public FirstOrderOptimizer {

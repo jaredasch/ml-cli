@@ -9,9 +9,6 @@
 bool AdamOptimizer::run(mat &data, mat &labels) {
     srand(time(0));
 
-    // Keep for checking convergence
-    int last_loss = loss(data, labels);
-
     // Store how many have already been sampled to reshuffle when needed
     int sampled_from_current_shuffling = 0;
     std::vector<int> shuffled_indices;
@@ -22,7 +19,7 @@ bool AdamOptimizer::run(mat &data, mat &labels) {
 
     // Main loop
     int t = 0;
-    while (t < max_iters) {
+    while (t < iterations) {
         t++;
         std::cout << "\rt = " << t << std::flush;
 
@@ -78,16 +75,8 @@ bool AdamOptimizer::run(mat &data, mat &labels) {
             mat updated_param = (get_param(param_name).array() - learning_rate * (bias_corrected_first_moment.array() / (bias_corrected_second_moment.array().sqrt() + epsilon))).matrix();
 
             update_param(param_name, updated_param);
-        }
-
-        // double current_loss = loss(data, labels);
-        // if ((last_loss - current_loss) < conv_thresh) {
-        //     return true;
-        // } else {
-        //     last_loss = current_loss;
-        // }
-        
-        
+        }  
     }
+    std::cout << "\r" << std::flush;
     return false;
 }

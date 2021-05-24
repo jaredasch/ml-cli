@@ -6,9 +6,10 @@ typedef Eigen::MatrixXd mat;
 
 // First order optimizable
 class FirstOrderOptimizable;
-class LogisticRegression;
+class BinaryLogisticRegression;
 
 // First order optimizers
 class FirstOrderOptimizer;
 class BatchGradientDescent;
 class StochasticGradientDescent;
+class AdamOptimizer;

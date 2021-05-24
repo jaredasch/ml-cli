@@ -43,6 +43,6 @@ bool StochasticGradientDescent::run(mat &data, mat &labels) {
         }
     }
 
-    std::cout << std::endl;
+    std::cout << "\r" << std::flush;
     return true;
 }

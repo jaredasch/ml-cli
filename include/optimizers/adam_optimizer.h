@@ -8,9 +8,8 @@
 class AdamOptimizer : public FirstOrderOptimizer {
     private:
         double learning_rate;
-        double conv_thresh;
         int batch_size;
-        int max_iters;
+        int iterations;
         double beta_1;
         double beta_2;
         double epsilon;
@@ -19,11 +18,10 @@ class AdamOptimizer : public FirstOrderOptimizer {
         std::unordered_map<std::string, mat> second_moment;
 
     public:
-        AdamOptimizer(double learning_rate, double conv_thresh, int batch_size=1, int max_iters=12000, double beta_1=0.9, double beta_2=0.999, double epsilon=1e-8) :
+        AdamOptimizer(double learning_rate, int batch_size=1, int iterations=12000, double beta_1=0.9, double beta_2=0.999, double epsilon=1e-8) :
             learning_rate{learning_rate},
-            conv_thresh{conv_thresh},
             batch_size{batch_size},
-            max_iters{max_iters},
+            iterations{iterations},
             beta_1{beta_1},
             beta_2{beta_2},
             epsilon{epsilon}

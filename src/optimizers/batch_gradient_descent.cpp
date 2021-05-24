@@ -40,6 +40,6 @@ bool BatchGradientDescent::run(mat &data, mat &labels) {
         iters++;
     }
 
-    std::cout << std::endl;
+    std::cout << "\r" << std::flush;
     return false;
 }

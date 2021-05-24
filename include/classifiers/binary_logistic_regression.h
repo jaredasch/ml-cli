@@ -7,14 +7,14 @@
 #include "optimizers/first_order_optimizable.h"
 #include "optimizers/batch_gradient_descent.h"
 
-class LogisticRegression : public FirstOrderOptimizable {
+class BinaryLogisticRegression : public FirstOrderOptimizable {
     public:
         void update_param(std::string param_name, mat new_param) override;
         mat get_param(std::string param_name) const override;
 
         static mat sigmoid(mat x);
 
-        LogisticRegression(int dim);
+        BinaryLogisticRegression(int dim);
 
         void fit(mat &data, mat &labels, FirstOrderOptimizer& opt);
 
