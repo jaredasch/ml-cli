@@ -9,7 +9,7 @@
 #include <iostream>
 #include <fstream>
 
-void LogisticRegression::fit(mat &data, std::vector<std::string> &labels, FirstOrderOptimizer& opt) {
+void LogisticRegression::fit(mat &data, std::vector<std::string> &labels, FirstOrderOptimizer* opt) {
     // Create bidirectional mapping of labels to columns
     this->labels = std::vector<std::string>();
     this->classifiers = std::vector<BinaryLogisticRegression>();

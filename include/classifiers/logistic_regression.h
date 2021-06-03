@@ -11,7 +11,7 @@ class LogisticRegression  {
 
         LogisticRegression(std::string path);
 
-        void fit(mat &data, std::vector<std::string> &labels, FirstOrderOptimizer& opt);
+        void fit(mat &data, std::vector<std::string> &labels, FirstOrderOptimizer* opt);
 
         std::vector<std::string> predict(mat &data);
 

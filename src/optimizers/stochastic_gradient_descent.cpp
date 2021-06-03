@@ -16,7 +16,6 @@ bool StochasticGradientDescent::run(mat &data, mat &labels) {
     std::unordered_map<std::string, mat> gradient_map;
 
     for (int epoch = 0; epoch < epochs; epoch++) {
-        std::cout << "\r Epoch " << epoch << std::flush;
 
         // Construct random permutation for minibatch sampling
         std::vector<int> shuffled_indices;
@@ -42,7 +41,6 @@ bool StochasticGradientDescent::run(mat &data, mat &labels) {
             }
         }
     }
-
-    std::cout << "\r" << std::flush;
+    
     return true;
 }

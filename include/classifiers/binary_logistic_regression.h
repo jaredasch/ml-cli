@@ -16,7 +16,7 @@ class BinaryLogisticRegression : public FirstOrderOptimizable {
 
         BinaryLogisticRegression(int dim);
 
-        void fit(mat &data, mat &labels, FirstOrderOptimizer& opt);
+        void fit(mat &data, mat &labels, FirstOrderOptimizer* opt);
 
         /**
         *   Calculates class conditional probabilities of the given data

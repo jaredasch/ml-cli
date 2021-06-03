@@ -16,7 +16,6 @@ bool BatchGradientDescent::run(mat &data, mat &labels) {
     double last_loss = 0;
 
     while (iters < max_iters) {
-        std::cout << "\r Iteration " << iters << std::flush;
         gradient_map = gradient(data, labels);
         for (std::pair<std::string, mat> p : gradient_map) {
             std::string param_name = p.first;
@@ -32,14 +31,11 @@ bool BatchGradientDescent::run(mat &data, mat &labels) {
         double new_loss = loss(data, labels);
 
         if (iters != 0 && last_loss - new_loss < conv_thresh) {
-            std::cout << "Converged after " << iters << " iterations" << std::endl;
             return true;
         }
 
         last_loss = new_loss;
         iters++;
     }
-
-    std::cout << "\r" << std::flush;
     return false;
 }

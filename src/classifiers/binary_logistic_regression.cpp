@@ -46,11 +46,11 @@ mat BinaryLogisticRegression::get_param(std::string param_name) const {
 *   @param labels the true labels of the data
 *   @param opt optimizer object to use
 */
-void BinaryLogisticRegression::fit(mat &data, mat &labels, FirstOrderOptimizer& opt) {
+void BinaryLogisticRegression::fit(mat &data, mat &labels, FirstOrderOptimizer* opt) {
     // Construct optimizer
-    opt.bind(this);
-    opt.run(data, labels);
-    opt.unbind();
+    opt->bind(this);
+    opt->run(data, labels);
+    opt->unbind();
     return;
 }
 

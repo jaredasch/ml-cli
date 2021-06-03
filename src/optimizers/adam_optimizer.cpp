@@ -21,7 +21,6 @@ bool AdamOptimizer::run(mat &data, mat &labels) {
     int t = 0;
     while (t < iterations) {
         t++;
-        // std::cout << "\rt = " << t << std::flush;
 
         // Construct minibatch, reshuffling if needed
         if (sampled_from_current_shuffling == data.rows()) {
@@ -77,6 +76,6 @@ bool AdamOptimizer::run(mat &data, mat &labels) {
             update_param(param_name, updated_param);
         }  
     }
-    std::cout << "\r" << std::flush;
+    
     return false;
 }
