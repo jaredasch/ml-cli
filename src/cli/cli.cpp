@@ -5,34 +5,59 @@
 
 #include "loaders/loaders.h"
 #include "classifiers/binary_logistic_regression.h"
+#include "classifiers/logistic_regression.h"
 
 #include "optimizers/batch_gradient_descent.h"
 #include "optimizers/stochastic_gradient_descent.h"
 #include "optimizers/minibatch_gradient_descent.h"
 #include "optimizers/adam_optimizer.h"
 
-int main() {
-    mat x_train = loaders::load_csv("data/ex1/X_test.txt");
-    mat y_train = loaders::load_csv("data/ex1/y_test.txt");
 
-    loaders::add_bias(x_train);
+int main(int argc, char* argv[]) {
+    std::vector<std::string> args;
+    for (int i = 0; i < argc - 1; i++) {
+        args.push_back(std::string(argv[i+1]));
+    }
 
-    BinaryLogisticRegression reg = BinaryLogisticRegression(x_train.cols());
+    if (args[0] == "train") {
+        // Usage: ./ml-cli train <data> <labels> <outfile>
+        LogisticRegression reg;
 
-    // BatchGradientDescent opt = BatchGradientDescent(5000, 0, 0.1);
-    // StochasticGradientDescent opt = StochasticGradientDescent(50, 0.1);
-    // MinibatchGradientDescent opt = MinibatchGradientDescent(20, 1, 0.1);
-    AdamOptimizer opt = AdamOptimizer(0.1, 100, 1000);
+        mat x_train = loaders::load_csv(args[1]);
+        std::cout << "|" << args[1] << "|" << std::endl;
+        std::vector<std::string> y_train = loaders::load_labels(args[2]);
 
-    reg.fit(x_train, y_train, opt);
+        AdamOptimizer opt = AdamOptimizer(0.1, 200, 1000);
 
-    mat pred_train = reg.predict(x_train);
-    std::cout << "Train accuracy: " << reg.accuracy(pred_train, y_train) << std::endl;
+        loaders::add_bias(x_train);
+        std::cout << "Started training...";
+        reg.fit(x_train, y_train, opt);
+        std::cout << "finished" << std::endl;
+        reg.export_model(args[3]);
+        std::cout << "Model saved to " << args[3] << std::endl;
+    } 
+    else if (args[0] == "predict") {
+        // Usage: ./ml-cli predict <model file> <data> <outfile>
 
-    mat x_test = loaders::load_csv("data/ex1/X_train.txt");
-    mat y_test = loaders::load_csv("data/ex1/y_train.txt");
+        LogisticRegression reg(args[1]);
 
-    loaders::add_bias(x_test);
-    mat pred_test = reg.predict(x_test);
-    std::cout << "Test accuracy: " << reg.accuracy(pred_test, y_test) << std::endl;
+        mat data = loaders::load_csv(args[2]);
+        loaders::add_bias(data);
+
+        std::vector<std::string> pred = reg.predict(data);
+        loaders::export_prediction(pred, args[3]);
+    }
+    else if (args[0] == "accuracy") {
+        // Usage: ./ml-cli acc <predicted> <actual>
+        std::vector<std::string> predicted = loaders::load_labels(args[1]);
+        std::vector<std::string> actual = loaders::load_labels(args[2]);
+
+        std::cout << "Accuracy: " << LogisticRegression::accuracy(predicted, actual) << std::endl;
+    }
+    else if (args[0] == "help") {
+        std::cout << "Commands: " << std::endl;
+        std::cout << "Train a model: ./ml-cli acc <predicted> <actual>" << std::endl;
+        std::cout << "Predict with a trained model: ./ml-cli train <data> <labels> <outfile>" << std::endl;
+        std::cout << "Compute accuracy: ./ml-cli acc <predicted> <actual>" << std::endl;
+    }
 }

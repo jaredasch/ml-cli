@@ -63,9 +63,50 @@ Eigen::MatrixXd loaders::load_csv(std::string path, char separator, bool is_head
     }
 }
 
+
+/**
+*   Loads labels into vector of strings, expects newline separated labels in column format
+*   @param path file path to load from
+*   @param header whether or not to ignore the first row
+*
+*   @return ordered vector containing labels
+*/
+std::vector<std::string> loaders::load_labels(std::string path, bool is_header) {
+    std::ifstream input_f;
+    input_f.open(path);
+    std::vector<std::string> labels;
+
+    if (input_f.good()) {
+        std::string buf;
+        if (is_header) {
+            getline(input_f, buf);
+        }
+        while (getline(input_f, buf)) {
+            labels.push_back(buf);
+        }
+    }
+
+    return labels;
+}
+
+
+/**
+*   Adds bias column to matrix
+*   @param matrix the matrix to add the column to (in place)
+*/   
 void loaders::add_bias(Eigen::MatrixXd& matrix) {
     Eigen::MatrixXd new_col;
     new_col.setOnes(matrix.rows(), 1);
     matrix.conservativeResize(matrix.rows(), matrix.cols()+1);
-    matrix.block(0, 0, matrix.rows(), 1) = new_col;
+    matrix.block(0, matrix.cols()-1, matrix.rows(), 1) = new_col;
 }
+
+
+void loaders::export_prediction(std::vector<std::string> prediction, std::string path) {
+    std::ofstream out_file;
+    out_file.open(path);
+    for (int i = 0; i < (int) prediction.size(); i++) {
+        out_file << prediction[i] << std::endl;
+    }    
+}
+
