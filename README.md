@@ -14,6 +14,7 @@ The first is `train`, which has the following usage.
 - `sgd` - Stochastic Gradient Descent
 - `minibatch` - Minibatch Gradient Descent
 - `batch` - Batch Gradient Descent
+
 Fine tuning of the parameters for each of the optimizers is supported in the underlying implementation, but not yet available in the CLI. 
 
 ### Predicting
