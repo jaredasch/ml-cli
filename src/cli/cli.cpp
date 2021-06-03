@@ -62,7 +62,7 @@ int main(int argc, char* argv[]) {
         loaders::export_prediction(pred, args[3]);
     }
     else if (args[0] == "accuracy") {
-        // Usage: ./ml-cli acc <predicted> <actual>
+        // Usage: ./ml-cli accuracy <predicted> <actual>
         std::vector<std::string> predicted = loaders::load_labels(args[1]);
         std::vector<std::string> actual = loaders::load_labels(args[2]);
 
@@ -70,8 +70,8 @@ int main(int argc, char* argv[]) {
     }
     else if (args[0] == "help") {
         std::cout << "Commands: " << std::endl;
-        std::cout << "Train a model: ./ml-cli acc <predicted> <actual> [<optimizer-type>]" << std::endl;
-        std::cout << "Predict with a trained model: ./ml-cli train <data> <labels> <outfile>" << std::endl;
-        std::cout << "Compute accuracy: ./ml-cli acc <predicted> <actual>" << std::endl;
+        std::cout << "Train a model: ./ml-cli train <data> <labels> <outfile> [<opt-type>]" << std::endl;
+        std::cout << "Predict with a trained model:  ./ml-cli predict <model file> <data> <outfile>" << std::endl;
+        std::cout << "Compute accuracy: ./ml-cli accuracy <predicted> <actual>" << std::endl;
     }
 }
