@@ -70,7 +70,7 @@ int main(int argc, char* argv[]) {
     }
     else if (args[0] == "help") {
         std::cout << "Commands: " << std::endl;
-        std::cout << "Train a model: ./ml-cli acc <predicted> <actual>" << std::endl;
+        std::cout << "Train a model: ./ml-cli acc <predicted> <actual> [<optimizer-type>]" << std::endl;
         std::cout << "Predict with a trained model: ./ml-cli train <data> <labels> <outfile>" << std::endl;
         std::cout << "Compute accuracy: ./ml-cli acc <predicted> <actual>" << std::endl;
     }
